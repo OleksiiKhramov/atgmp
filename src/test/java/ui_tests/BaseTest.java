@@ -3,6 +3,9 @@ package ui_tests;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.epam.data.ResourcesReader;
+import com.epam.ui.helpers.UtilitySteps;
+import com.epam.ui.pages.LaunchesPage;
+import com.epam.ui.pages.LoginPage;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
@@ -11,21 +14,22 @@ import lombok.Getter;
 import java.util.Properties;
 
 import static com.epam.data.Constants.FILE_PATH;
-import static com.epam.ui.helpers.LoginPageHelper.login;
-import static com.epam.ui.helpers.LoginPageHelper.loginPage;
 
 @Getter
 public class BaseTest {
 
     private static final ResourcesReader resourcesReader = new ResourcesReader();
     private static final Properties props = resourcesReader.loadPropertiesFile(FILE_PATH);
+    LoginPage loginPage = new LoginPage();
+    LaunchesPage launchesPage = new LaunchesPage();
+    UtilitySteps utilitySteps = new UtilitySteps();
 
     @BeforeTest
     public void beforeTest() {
         Configuration.browser = (props.getProperty("browser.type"));
         loginPage.setBaseUrl(props.getProperty("login.url"));
         loginPage.open();
-        login();
+        utilitySteps.login();
     }
 
     @AfterTest

@@ -1,31 +1,30 @@
 package ui_tests;
 
-import com.epam.ui.helpers.LaunchesPageHelper;
 import org.testng.annotations.Test;
 
 public class LaunchesTests extends BaseTest {
 
     @Test(description = "Add and delete filter")
     public void workingWithFilters() {
-        LaunchesPageHelper.clickOnLaunches();
-        LaunchesPageHelper.filtersHasItems(1);
-        LaunchesPageHelper.clickOnAddFilter();
-        LaunchesPageHelper.filtersHasItems(2);
-        LaunchesPageHelper.clickOnDeleteFilter();
-        LaunchesPageHelper.filtersHasItems(1);
+        launchesPage.clickOnLaunches();
+        launchesPage.filtersHasItems(1);
+        launchesPage.clickOnAddFilter();
+        launchesPage.filtersHasItems(2);
+        launchesPage.clickOnDeleteFilter();
+        launchesPage.filtersHasItems(1);
     }
 
     @Test(description = "First test has no failures")
     public void firstLaunchHasNoFailures() {
-        LaunchesPageHelper.clickOnLaunches();
-        LaunchesPageHelper.clickOnSorting("fl");
-        LaunchesPageHelper.firstLaunchFilters("failed");
+        launchesPage.clickOnLaunches();
+        launchesPage.clickOnSorting("fl");
+        launchesPage.firstLaunchFilters("failed");
     }
 
     @Test(description = "Sorting", dataProvider = "filterByFailures")
     public void filterByFilters(String sortingName, String filterName) {
-        LaunchesPageHelper.clickOnLaunches();
-        LaunchesPageHelper.clickOnSorting(sortingName);
-        LaunchesPageHelper.firstLaunchFilters(filterName);
+        launchesPage.clickOnLaunches();
+        launchesPage.clickOnSorting(sortingName);
+        launchesPage.firstLaunchFilters(filterName);
     }
 }

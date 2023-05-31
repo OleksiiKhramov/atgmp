@@ -2,39 +2,57 @@ package cucumber.steps;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.WebDriverRunner;
+import com.epam.data.ResourcesReader;
+import com.epam.ui.helpers.UtilitySteps;
 import com.epam.ui.pages.LaunchesPage;
+import com.epam.ui.pages.LoginPage;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Properties;
+
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import static com.epam.data.Constants.FILE_PATH;
 import static com.epam.data.Constants.waiter;
-import static com.epam.ui.BasePage.props;
-import static com.epam.ui.helpers.LoginPageHelper.login;
-import static com.epam.ui.helpers.LoginPageHelper.loginPage;
 
 @Slf4j
 public class LaunchesSteps {
 
-    public static LaunchesPage launchesPage = new LaunchesPage();
+    ResourcesReader resourcesReader = new ResourcesReader();
+    Properties props = resourcesReader.loadPropertiesFile(FILE_PATH);
+    LaunchesPage launchesPage = new LaunchesPage();
+    LoginPage loginPage = new LoginPage();
+    UtilitySteps utilitySteps = new UtilitySteps();
+
+    @Before
+    public void beforeScenario() {
+        Configuration.browser = (props.getProperty("browser.type"));
+        loginPage.setBaseUrl(props.getProperty("login.url"));
+    }
+
+    @After
+    public void afterScenario() {
+        WebDriverRunner.closeWebDriver();
+    }
 
     @Given("open ReportPortal")
     public void openReportPortal() {
-        Configuration.browser = (props.getProperty("browser.type"));
-        loginPage.setBaseUrl(props.getProperty("login.url"));
         loginPage.open();
-        login();
+        utilitySteps.login();
     }
 
     @And("click on launches tab")
     public void clickOnLaunches() {
         log.info("click on launches tab in the hamburger menu");
         launchesPage.getLaunchesTab().click();
-        waiter.until(o -> o.getCurrentUrl().contains("/launches"));
         waiter.until(ExpectedConditions.visibilityOfAllElements(launchesPage.getLaunchName()));
     }
 

@@ -11,8 +11,8 @@ import static com.epam.data.Constants.FILE_PATH;
 @Slf4j
 public class BasePage {
 
-    public static ResourcesReader resourcesReader = new ResourcesReader();
-    public static Properties props = resourcesReader.loadPropertiesFile(FILE_PATH);
+    public ResourcesReader resourcesReader = new ResourcesReader();
+    public Properties props = resourcesReader.loadPropertiesFile(FILE_PATH);
     private String baseUrl;
 
     public BasePage open() {
