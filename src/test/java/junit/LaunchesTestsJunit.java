@@ -10,7 +10,7 @@ public class LaunchesTestsJunit extends BaseTest {
     @DisplayName("Test for sorting")
     @CsvFileSource(resources = "/data.csv", numLinesToSkip = 1)
     public void filterByFilters(String sortingName, String filterName) {
-        utilitySteps.login();
+        commonSteps.login();
         launchesPage.clickOnLaunches();
         launchesPage.clickOnSorting(sortingName);
         launchesPage.firstLaunchFilters(filterName);

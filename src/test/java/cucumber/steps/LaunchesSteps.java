@@ -4,7 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
 import com.epam.data.ResourcesReader;
-import com.epam.ui.helpers.UtilitySteps;
+import com.epam.ui.steps.CommonSteps;
 import com.epam.ui.pages.LaunchesPage;
 import com.epam.ui.pages.LoginPage;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -30,7 +30,7 @@ public class LaunchesSteps {
     Properties props = resourcesReader.loadPropertiesFile(FILE_PATH);
     LaunchesPage launchesPage = new LaunchesPage();
     LoginPage loginPage = new LoginPage();
-    UtilitySteps utilitySteps = new UtilitySteps();
+    CommonSteps commonSteps = new CommonSteps();
 
     @Before
     public void beforeScenario() {
@@ -46,7 +46,7 @@ public class LaunchesSteps {
     @Given("open ReportPortal")
     public void openReportPortal() {
         loginPage.open();
-        utilitySteps.login();
+        commonSteps.login();
     }
 
     @And("click on launches tab")

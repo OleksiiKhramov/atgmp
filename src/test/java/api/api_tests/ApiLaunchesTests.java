@@ -1,8 +1,10 @@
-package api;
+package api.api_tests;
 
 import org.junit.jupiter.api.Tag;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import api.clients.LaunchesApiClient;
+import api.utils.ClientApiHelper;
 import jdk.jfr.Description;
 
 import java.io.File;
@@ -11,12 +13,12 @@ import java.util.regex.Pattern;
 
 import io.restassured.response.Response;
 
-import static api.LaunchesApiClient.deleteLaunch;
-import static api.LaunchesApiClient.getLaunchID;
-import static api.LaunchesApiClient.updateLaunch;
-import static api.endpoints.LaunchesApi.LAUNCHES;
+import static api.api_tests.ApiConstants.LAUNCHES;
+import static api.api_tests.ApiConstants.props;
 
-public class ApiLaunchesTests extends ApiBaseTest {
+public class ApiLaunchesTests {
+
+    private static LaunchesApiClient launchesApiClient = new LaunchesApiClient();
 
     @Test
     @Description("api test")
@@ -45,11 +47,11 @@ public class ApiLaunchesTests extends ApiBaseTest {
     @Description("update name and delete launch")
     @Tag("api")
     public static void updateAndDeleteLaunch() {
-        int id = getLaunchID();
-        Assert.assertEquals(updateLaunch(id),
+        int id = launchesApiClient.getLaunchID();
+        Assert.assertEquals(launchesApiClient.updateLaunch(id),
                 "Launch with ID = '" + id + "' successfully updated."
         );
-        Assert.assertEquals(deleteLaunch(id),
+        Assert.assertEquals(launchesApiClient.deleteLaunch(id),
                 "Launch with ID = '" + id + "' successfully deleted."
         );
     }

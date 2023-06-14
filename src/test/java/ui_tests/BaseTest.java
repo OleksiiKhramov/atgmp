@@ -3,7 +3,7 @@ package ui_tests;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.epam.data.ResourcesReader;
-import com.epam.ui.helpers.UtilitySteps;
+import com.epam.ui.steps.CommonSteps;
 import com.epam.ui.pages.LaunchesPage;
 import com.epam.ui.pages.LoginPage;
 import org.testng.annotations.AfterTest;
@@ -22,14 +22,14 @@ public class BaseTest {
     private static final Properties props = resourcesReader.loadPropertiesFile(FILE_PATH);
     LoginPage loginPage = new LoginPage();
     LaunchesPage launchesPage = new LaunchesPage();
-    UtilitySteps utilitySteps = new UtilitySteps();
+    CommonSteps commonSteps = new CommonSteps();
 
     @BeforeTest
     public void beforeTest() {
         Configuration.browser = (props.getProperty("browser.type"));
         loginPage.setBaseUrl(props.getProperty("login.url"));
         loginPage.open();
-        utilitySteps.login();
+        commonSteps.login();
     }
 
     @AfterTest

@@ -1,16 +1,18 @@
-package api;
+package api.clients;
 
 import com.google.gson.Gson;
 import api.models.launches.ResponseForLaunches;
 import api.models.launches.put.ResponsePutDescription;
+import api.utils.ClientApiHelper;
 
 import io.restassured.response.Response;
 
-import static api.endpoints.LaunchesApi.LAUNCHES;
+import static api.api_tests.ApiConstants.LAUNCHES;
+import static api.api_tests.ApiConstants.props;
 
-public class LaunchesApiClient extends ApiBaseTest {
+public class LaunchesApiClient {
 
-    public static int getLaunchID() {
+    public int getLaunchID() {
         Gson gson = new Gson();
         Response response = ClientApiHelper.auth().when().get(props.getProperty("login.url") + LAUNCHES);
         ResponseForLaunches responseForLaunches = gson.fromJson(response.getBody().print(),
@@ -19,7 +21,7 @@ public class LaunchesApiClient extends ApiBaseTest {
         return responseForLaunches.getContent().get(responseForLaunches.getContent().size() - 1).getId();
     }
 
-    public static String updateLaunch(int launchID) {
+    public String updateLaunch(int launchID) {
         ResponsePutDescription responseFromPojo = ResponsePutDescription.builder().description("test desc")
                 .build();
         Response response = ClientApiHelper.auth().body(responseFromPojo).when().put(
@@ -27,7 +29,7 @@ public class LaunchesApiClient extends ApiBaseTest {
         return response.jsonPath().get("message");
     }
 
-    public static String deleteLaunch(int launchID) {
+    public String deleteLaunch(int launchID) {
         Response response = ClientApiHelper.auth().when().delete(
                 props.getProperty("login.url") + LAUNCHES + launchID).then().extract().response();
         return response.jsonPath().get("message");

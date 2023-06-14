@@ -1,10 +1,10 @@
-package com.epam.ui.helpers;
+package com.epam.ui.steps;
 
 import com.epam.ui.pages.LoginPage;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-public class UtilitySteps {
+public class CommonSteps {
 
     LoginPage loginPage = new LoginPage();
 

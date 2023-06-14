@@ -3,7 +3,7 @@ package junit;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.epam.data.ResourcesReader;
-import com.epam.ui.helpers.UtilitySteps;
+import com.epam.ui.steps.CommonSteps;
 import com.epam.ui.pages.LaunchesPage;
 import com.epam.ui.pages.LoginPage;
 import org.junit.jupiter.api.AfterEach;
@@ -19,7 +19,7 @@ public class BaseTest {
     Properties props = resourcesReader.loadPropertiesFile(FILE_PATH);
     LoginPage loginPage = new LoginPage();
     LaunchesPage launchesPage = new LaunchesPage();
-    UtilitySteps utilitySteps = new UtilitySteps();
+    CommonSteps commonSteps = new CommonSteps();
 
     @BeforeEach
     public void login() {
