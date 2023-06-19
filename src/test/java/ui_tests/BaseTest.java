@@ -2,10 +2,12 @@ package ui_tests;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.WebDriverRunner;
 import com.epam.data.ResourcesReader;
-import com.epam.ui.steps.CommonSteps;
+import com.epam.ui.pages.DashboardPage;
 import com.epam.ui.pages.LaunchesPage;
 import com.epam.ui.pages.LoginPage;
+import com.epam.ui.steps.CommonSteps;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
@@ -22,6 +24,7 @@ public class BaseTest {
     private static final Properties props = resourcesReader.loadPropertiesFile(FILE_PATH);
     LoginPage loginPage = new LoginPage();
     LaunchesPage launchesPage = new LaunchesPage();
+    DashboardPage dashboardPage = new DashboardPage();
     CommonSteps commonSteps = new CommonSteps();
 
     @BeforeTest
@@ -29,6 +32,7 @@ public class BaseTest {
         Configuration.browser = (props.getProperty("browser.type"));
         loginPage.setBaseUrl(props.getProperty("login.url"));
         loginPage.open();
+        WebDriverRunner.driver().getWebDriver().manage().window().maximize();
         commonSteps.login();
     }
 
