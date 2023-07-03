@@ -26,7 +26,7 @@ public class LaunchesPage extends BasePage {
     private SelenideElement launchName = $(By.xpath("//td[contains(@class,'launchSuiteGrid__name')]"));
     private SelenideElement deleteFilter = $(By.cssSelector("div[class*='filterItem__icon']"));
     private List<SelenideElement> addedFilter = $$(By.cssSelector("span[class*='filterItem__name']"));
-    private String sortBy = "//span[contains(@class,'headerCell') and contains(text(),'%s')]";
+    private String sortBy = "//span[contains(@class,'headerCell') and contains(text(),'%s')]/..";
     private String firstLaunchFilterTestsAmount = "//span[contains(text(),'%s')]/ancestor::div[contains(@class,'executionStatistics__execution-statistics')][1]";
 
     public SelenideElement getFirstLaunchFilterTestsAmount(String filterName) {

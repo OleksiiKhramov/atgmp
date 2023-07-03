@@ -1,0 +1,18 @@
+/* Requires the Docker Pipeline plugin */
+pipeline {
+    agent any
+    tools {
+    maven 'maven_home'}
+    stages {
+        stage('build') {
+            steps {
+                sh 'mvn --version'
+            }
+        }
+        stage('build') {
+            steps {
+                sh 'mvn clean test'
+            }
+        }
+    }
+}
