@@ -1,5 +1,9 @@
-
 pipeline {
+    agent any
+        tools {
+            maven 'maven'
+        }
+    stages {
 stage ('Build') {
 
     withMaven(
@@ -19,4 +23,6 @@ stage ('Build') {
 
     } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe & FindBugs & SpotBugs reports...
   }
+        }
+    }
 }
