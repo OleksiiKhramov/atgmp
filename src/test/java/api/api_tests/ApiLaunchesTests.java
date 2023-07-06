@@ -5,12 +5,12 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import api.clients.LaunchesApiClient;
 import api.utils.ClientApiHelper;
-import jdk.jfr.Description;
 
 import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import io.qameta.allure.Description;
 import io.restassured.response.Response;
 
 import static api.api_tests.ApiConstants.LAUNCHES;

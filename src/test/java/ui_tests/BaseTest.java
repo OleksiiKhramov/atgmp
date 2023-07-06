@@ -4,11 +4,14 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import com.epam.data.ResourcesReader;
+import com.epam.slack.SlackManager;
 import com.epam.ui.pages.DashboardPage;
 import com.epam.ui.pages.LaunchesPage;
 import com.epam.ui.pages.LoginPage;
 import com.epam.ui.steps.CommonSteps;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import lombok.Getter;
@@ -39,6 +42,16 @@ public class BaseTest {
     @AfterTest
     public void afterTest() {
         Selenide.closeWebDriver();
+    }
+
+    @BeforeMethod
+    public static void startSlackMessage() {
+        SlackManager.sendMessageToSlack("start");
+    }
+
+    @AfterMethod
+    public static void finishSlackMessage() {
+        SlackManager.sendMessageToSlack("finish");
     }
 
     @DataProvider(name = "filterByFailures")
